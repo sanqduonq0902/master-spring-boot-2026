@@ -6,6 +6,10 @@ spring:
     url: jdbc:mysql://localhost:3306/master-spring-boot-2026?createDatabaseIfNotExist=true
     username: ${DB_NAME}
     password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 server:
   port: 8888
