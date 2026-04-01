@@ -3,6 +3,9 @@ package com.project.masterspringboot2026.service;
 import com.project.masterspringboot2026.dto.request.UserCreationRequest;
 import com.project.masterspringboot2026.dto.request.UserUpdateRequest;
 import com.project.masterspringboot2026.entity.User;
+import com.project.masterspringboot2026.exception.AppException;
+import com.project.masterspringboot2026.exception.ErrorCode;
+import com.project.masterspringboot2026.mapper.UserMapper;
 import com.project.masterspringboot2026.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,17 +17,15 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserMapper userMapper;
+
     public User createUser(UserCreationRequest request) {
-        User user = new User();
 
         if (userRepository.existsByUsername(request.getUsername()))
-            throw new RuntimeException("User existed");
+            throw new AppException(ErrorCode.USER_EXISTED);
 
-        user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setDob(request.getDob());
+        User user = userMapper.toUser(request);
 
         return userRepository.save(user);
     }
@@ -41,10 +42,7 @@ public class UserService {
     public User updateUser(String id, UserUpdateRequest request) {
         User user = getUserById(id);
 
-        user.setPassword(request.getPassword());
-        user.setFirstName(request.getFirstName());
-        user.setLastName(request.getLastName());
-        user.setDob(request.getDob());
+        userMapper.updateUser(user, request);
 
         return userRepository.save(user);
     }
