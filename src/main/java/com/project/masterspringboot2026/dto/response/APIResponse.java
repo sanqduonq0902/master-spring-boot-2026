@@ -1,20 +1,19 @@
-package com.project.masterspringboot2026.dto.request;
+package com.project.masterspringboot2026.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserUpdateRequest {
-    String password;
-    String firstName;
-    String lastName;
-    LocalDate dob;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class APIResponse <T> {
+    int code;
+    String message;
+    T result;
 }

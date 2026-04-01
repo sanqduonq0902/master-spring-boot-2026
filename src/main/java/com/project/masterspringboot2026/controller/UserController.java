@@ -2,6 +2,7 @@ package com.project.masterspringboot2026.controller;
 
 import com.project.masterspringboot2026.dto.request.UserCreationRequest;
 import com.project.masterspringboot2026.dto.request.UserUpdateRequest;
+import com.project.masterspringboot2026.dto.response.APIResponse;
 import com.project.masterspringboot2026.entity.User;
 import com.project.masterspringboot2026.service.UserService;
 import jakarta.validation.Valid;
@@ -17,8 +18,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    User createUser(@RequestBody @Valid UserCreationRequest request) {
-        return userService.createUser(request);
+    APIResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
+        APIResponse<User> apiResponse = new APIResponse<>();
+        apiResponse.setResult(userService.createUser(request));
+        return apiResponse;
     }
 
     @GetMapping
