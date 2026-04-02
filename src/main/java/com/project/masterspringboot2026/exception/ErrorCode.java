@@ -1,21 +1,15 @@
 package com.project.masterspringboot2026.exception;
 
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+@Getter
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public enum ErrorCode {
-    USER_EXISTED(404, "User existed");
+    USER_EXISTED(400, "User existed"),
+    USER_NOT_EXISTED(404, "User not existed");
 
-    private int code;
-    private String message;
-
-    public int getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    ErrorCode(int code, String message) {
-        this.code = code;
-        this.message = message;
-    }
+    int code;
+    String message;
 }
