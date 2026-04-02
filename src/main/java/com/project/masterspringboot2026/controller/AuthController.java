@@ -1,8 +1,11 @@
 package com.project.masterspringboot2026.controller;
 
+import com.nimbusds.jose.JOSEException;
 import com.project.masterspringboot2026.dto.request.AuthRequest;
+import com.project.masterspringboot2026.dto.request.IntrospectRequest;
 import com.project.masterspringboot2026.dto.response.APIResponse;
 import com.project.masterspringboot2026.dto.response.AuthResponse;
+import com.project.masterspringboot2026.dto.response.IntrospectResponse;
 import com.project.masterspringboot2026.service.AuthService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -19,11 +24,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     AuthService authService;
 
-    @PostMapping("/login")
+    @PostMapping("/token")
     APIResponse<AuthResponse> authenticated(@RequestBody AuthRequest request) {
-        boolean result = authService.authenticate(request);
+        var result = authService.authenticate(request);
         return APIResponse.<AuthResponse>builder()
-                .result(AuthResponse.builder().authenticated(result).build())
+                .result(result)
+                .build();
+    }
+
+    @PostMapping("/introspect")
+    APIResponse<IntrospectResponse> authenticated(@RequestBody IntrospectRequest request) throws ParseException, JOSEException {
+        var result = authService.introspect(request);
+
+        return APIResponse.<IntrospectResponse>builder()
+                .result(result)
                 .build();
     }
 }
