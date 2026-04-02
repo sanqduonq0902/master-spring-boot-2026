@@ -1,19 +1,19 @@
-package com.project.masterspringboot2026.dto.response;
+    package com.project.masterspringboot2026.dto.response;
 
-import lombok.*;
-import lombok.experimental.FieldDefaults;
+    import lombok.*;
+    import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
+    import java.time.LocalDate;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
-public class UserResponse {
-    String id;
-    String username;
-    String firstName;
-    String lastName;
-    LocalDate dob;
-}
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    public class UserResponse {
+        String id;
+        String username;
+        String firstName;
+        String lastName;
+        LocalDate dob;
+    }

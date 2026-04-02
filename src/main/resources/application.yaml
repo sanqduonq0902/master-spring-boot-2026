@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: master-spring-boot-2026
+
+  output:
+    ansi:
+      enabled: ALWAYS
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/master-spring-boot-2026?createDatabaseIfNotExist=true
+    username: root
+    password: s0902#@!zA
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8888
+  servlet:
+    context-path: /api/v1
+
+logging:
+  pattern:
+    console: "%clr([%d{yyyy-MM-dd HH:mm:ss}]){blue} %clr(%level) %clr(%msg){cyan}%n"
+
+jwt:
+  secret: "0b792726eaff78c40f5a5c3041f27e9b78fd32016cd904a2a495c20e0f16c0e6"
