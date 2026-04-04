@@ -2,6 +2,7 @@ package com.project.masterspringboot2026.exception;
 
 import com.project.masterspringboot2026.dto.response.APIResponse;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,13 +11,23 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = RuntimeException.class)
-    ResponseEntity<APIResponse> handlingRuntimeException(RuntimeException exception) {
-        APIResponse apiResponse = new APIResponse();
+    ResponseEntity<APIResponse<Object>> handlingRuntimeException(RuntimeException exception) {
+        return ResponseEntity.badRequest().body(
+                APIResponse.builder()
+                        .code(400)
+                        .message(exception.getMessage())
+                        .build()
+        );
+    }
 
-        apiResponse.setCode(400);
-        apiResponse.setMessage(exception.getMessage());
-
-        return ResponseEntity.badRequest().body(apiResponse);
+    @ExceptionHandler(value = AppException.class)
+    ResponseEntity<APIResponse<Object>> handlingAppException(AppException exception) {
+        ErrorCode errorCode = exception.getErrorCode();
+        return ResponseEntity.status(errorCode.getStatusCode())
+                .body(APIResponse.builder()
+                        .code(400)
+                        .message(exception.getMessage())
+                        .build());
     }
 
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
@@ -24,5 +35,15 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(exception.getFieldError().getDefaultMessage());
     }
 
+    @ExceptionHandler(value = AccessDeniedException.class)
+    ResponseEntity<APIResponse<Object>> handlingAccessDeniedException(AccessDeniedException exception) {
+        ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
 
+        return ResponseEntity.status(errorCode.getStatusCode())
+                .body(APIResponse.builder()
+                        .code(errorCode.getCode())
+                        .message(errorCode.getMessage())
+                        .build()
+                );
+    }
 }
