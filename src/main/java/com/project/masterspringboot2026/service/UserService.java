@@ -1,5 +1,6 @@
 package com.project.masterspringboot2026.service;
 
+import com.project.masterspringboot2026.constant.RoleConstant;
 import com.project.masterspringboot2026.dto.request.UserCreationRequest;
 import com.project.masterspringboot2026.dto.request.UserUpdateRequest;
 import com.project.masterspringboot2026.dto.response.UserResponse;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -23,13 +25,19 @@ public class UserService {
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername()))
             throw new AppException(ErrorCode.USER_EXISTED);
 
         User user = userMapper.toUser(request);
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        HashSet<String> roles = new HashSet<>();
+        roles.add(RoleConstant.USER_ROLE);
+        user.setRoles(roles);
         user = userRepository.save(user);
         return userMapper.toUserResponse(user);
     }
