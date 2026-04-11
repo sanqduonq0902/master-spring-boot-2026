@@ -8,6 +8,7 @@ import com.project.masterspringboot2026.entity.User;
 import com.project.masterspringboot2026.exception.AppException;
 import com.project.masterspringboot2026.exception.ErrorCode;
 import com.project.masterspringboot2026.mapper.UserMapper;
+import com.project.masterspringboot2026.repository.RoleRepository;
 import com.project.masterspringboot2026.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -31,6 +32,8 @@ public class UserService {
 
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    private RoleRepository roleRepository;
 
     public UserResponse createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername()))
@@ -61,6 +64,10 @@ public class UserService {
         User user = getUserById(id);
 
         userMapper.updateUser(user, request);
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        var roles = roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(roles));
 
         return userRepository.save(user);
     }
