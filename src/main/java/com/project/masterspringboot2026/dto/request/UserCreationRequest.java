@@ -1,8 +1,9 @@
 package com.project.masterspringboot2026.dto.request;
 
+import com.project.masterspringboot2026.exception.ErrorCode;
+import com.project.masterspringboot2026.validator.DobConstraint;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
 
@@ -18,5 +19,7 @@ public class UserCreationRequest {
 
     String firstName;
     String lastName;
+
+    @DobConstraint(min = 18, message = "INVALID_DATE_OF_BIRTH")
     LocalDate dob;
 }

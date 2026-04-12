@@ -12,7 +12,8 @@ public enum ErrorCode {
     USER_EXISTED(400, "User existed", HttpStatus.BAD_REQUEST),
     UNAUTHENTICATED(400, "Unauthenticated", HttpStatus.BAD_REQUEST),
     UNAUTHORIZED(403, "Unauthorized", HttpStatus.FORBIDDEN),
-    USER_NOT_EXISTED(404, "User not existed", HttpStatus.NOT_FOUND);
+    USER_NOT_EXISTED(404, "User not existed", HttpStatus.NOT_FOUND),
+    INVALID_DATE_OF_BIRTH(400, "Date of birth must greater than 18 years old", HttpStatus.BAD_REQUEST);
 
     int code;
     String message;
