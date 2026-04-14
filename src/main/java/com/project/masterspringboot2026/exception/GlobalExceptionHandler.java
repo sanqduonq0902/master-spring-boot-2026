@@ -1,14 +1,19 @@
 package com.project.masterspringboot2026.exception;
 
 import com.project.masterspringboot2026.dto.response.APIResponse;
+import jakarta.validation.Constraint;
+import jakarta.validation.ConstraintViolation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.Map;
 import java.util.Objects;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -37,23 +42,28 @@ public class GlobalExceptionHandler {
 
         String key = Objects.requireNonNull(exception.getFieldError()).getDefaultMessage();
 
-        ErrorCode errorCode;
+        ErrorCode errorCode = ErrorCode.INVALID_KEY;
+        Map<String, Object> attributes = null;
 
         try {
             errorCode = ErrorCode.valueOf(key);
+
+            var constraintViolation = exception.getBindingResult()
+                    .getAllErrors().getFirst().unwrap(ConstraintViolation.class);
+
+            attributes = constraintViolation.getConstraintDescriptor().getAttributes();
+            log.info(attributes.toString());
+
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(
-                    APIResponse.builder()
-                            .code(400)
-                            .message(key)
-                            .build()
-            );
+
         }
 
         return ResponseEntity.status(errorCode.getStatusCode())
                 .body(APIResponse.builder()
                         .code(errorCode.getCode())
-                        .message(errorCode.getMessage())
+                        .message(Objects.nonNull(attributes)
+                            ? mapAttribute(errorCode.getMessage(), attributes)
+                            : errorCode.getMessage())
                         .build());
     }
 
@@ -67,5 +77,19 @@ public class GlobalExceptionHandler {
                         .message(errorCode.getMessage())
                         .build()
                 );
+    }
+
+    private String mapAttribute(String message, Map<String, Object> attributes) {
+
+        for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+
+            if (value != null) {
+                message  = message.replace("{" + key + "}", String.valueOf(value));
+            }
+        }
+
+        return message;
     }
 }
