@@ -13,7 +13,8 @@ public enum ErrorCode {
     UNAUTHENTICATED(400, "Unauthenticated", HttpStatus.BAD_REQUEST),
     UNAUTHORIZED(403, "Unauthorized", HttpStatus.FORBIDDEN),
     USER_NOT_EXISTED(404, "User not existed", HttpStatus.NOT_FOUND),
-    INVALID_DATE_OF_BIRTH(400, "Date of birth must greater than 18 years old", HttpStatus.BAD_REQUEST);
+    INVALID_DATE_OF_BIRTH(400, "Date of birth must greater than {min} years old", HttpStatus.BAD_REQUEST),
+    INVALID_KEY(400, "Uncategorized", HttpStatus.BAD_REQUEST);
 
     int code;
     String message;
