@@ -1,6 +1,5 @@
     package com.project.masterspringboot2026.dto.response;
 
-    import com.project.masterspringboot2026.entity.Role;
     import lombok.*;
     import lombok.experimental.FieldDefaults;
 

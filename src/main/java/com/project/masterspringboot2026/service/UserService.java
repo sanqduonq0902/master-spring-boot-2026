@@ -4,7 +4,7 @@ import com.project.masterspringboot2026.constant.RoleConstant;
 import com.project.masterspringboot2026.dto.request.UserCreationRequest;
 import com.project.masterspringboot2026.dto.request.UserUpdateRequest;
 import com.project.masterspringboot2026.dto.response.UserResponse;
-import com.project.masterspringboot2026.entity.User;
+import com.project.masterspringboot2026.model.User;
 import com.project.masterspringboot2026.exception.AppException;
 import com.project.masterspringboot2026.exception.ErrorCode;
 import com.project.masterspringboot2026.mapper.UserMapper;
@@ -14,13 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {

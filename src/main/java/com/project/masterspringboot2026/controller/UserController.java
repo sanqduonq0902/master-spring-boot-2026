@@ -4,7 +4,7 @@ import com.project.masterspringboot2026.dto.request.UserCreationRequest;
 import com.project.masterspringboot2026.dto.request.UserUpdateRequest;
 import com.project.masterspringboot2026.dto.response.APIResponse;
 import com.project.masterspringboot2026.dto.response.UserResponse;
-import com.project.masterspringboot2026.entity.User;
+import com.project.masterspringboot2026.model.User;
 import com.project.masterspringboot2026.service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;

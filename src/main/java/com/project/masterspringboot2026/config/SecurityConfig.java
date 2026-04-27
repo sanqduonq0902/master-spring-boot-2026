@@ -1,5 +1,6 @@
 package com.project.masterspringboot2026.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,11 +25,11 @@ import javax.crypto.spec.SecretKeySpec;
 @EnableMethodSecurity
 public class SecurityConfig {
     private final String[] PUBLIC_ENDPOINT = {
-            "/users", "/auth/token", "/auth/introspect"
+            "/users", "/auth/token", "/auth/introspect", "/auth/logout"
     };
 
-    @Value("${jwt.secret}")
-    private String secretKey;
+    @Autowired
+    private CustomJwtConfig customJwtConfig;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -40,7 +41,7 @@ public class SecurityConfig {
 
         http.oauth2ResourceServer(oauth2 ->
                 oauth2.jwt(jwtConfigurer -> jwtConfigurer
-                        .decoder(jwtDecoder())
+                        .decoder(customJwtConfig)
                         .jwtAuthenticationConverter(jwtAuthenticationConverter())
                 ).authenticationEntryPoint(new JwtAuthenticationEntryPoint())
         );
@@ -48,16 +49,6 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
-    }
-
-    @Bean
-    JwtDecoder jwtDecoder() {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(secretKey.getBytes(), "HS512");
-
-        return NimbusJwtDecoder
-                .withSecretKey(secretKeySpec)
-                .macAlgorithm(MacAlgorithm.HS512)
-                .build();
     }
 
     @Bean

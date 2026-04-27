@@ -3,7 +3,7 @@ package com.project.masterspringboot2026.mapper;
 import com.project.masterspringboot2026.dto.request.UserCreationRequest;
 import com.project.masterspringboot2026.dto.request.UserUpdateRequest;
 import com.project.masterspringboot2026.dto.response.UserResponse;
-import com.project.masterspringboot2026.entity.User;
+import com.project.masterspringboot2026.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;

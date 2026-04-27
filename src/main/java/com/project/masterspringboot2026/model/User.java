@@ -1,4 +1,4 @@
-package com.project.masterspringboot2026.entity;
+package com.project.masterspringboot2026.model;
 
 import jakarta.persistence.*;
 import lombok.*;
