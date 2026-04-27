@@ -2,7 +2,7 @@ package com.project.masterspringboot2026.mapper;
 
 import com.project.masterspringboot2026.dto.request.RoleRequest;
 import com.project.masterspringboot2026.dto.response.RoleResponse;
-import com.project.masterspringboot2026.entity.Role;
+import com.project.masterspringboot2026.model.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

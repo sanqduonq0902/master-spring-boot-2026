@@ -3,6 +3,7 @@ package com.project.masterspringboot2026.controller;
 import com.nimbusds.jose.JOSEException;
 import com.project.masterspringboot2026.dto.request.AuthRequest;
 import com.project.masterspringboot2026.dto.request.IntrospectRequest;
+import com.project.masterspringboot2026.dto.request.LogoutRequest;
 import com.project.masterspringboot2026.dto.response.APIResponse;
 import com.project.masterspringboot2026.dto.response.AuthResponse;
 import com.project.masterspringboot2026.dto.response.IntrospectResponse;
@@ -39,5 +40,11 @@ public class AuthController {
         return APIResponse.<IntrospectResponse>builder()
                 .result(result)
                 .build();
+    }
+
+    @PostMapping("/logout")
+    APIResponse<Void> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
+        authService.logout(request);
+        return APIResponse.<Void>builder().build();
     }
 }

@@ -1,7 +1,7 @@
 package com.project.masterspringboot2026.config;
 
 import com.project.masterspringboot2026.constant.RoleConstant;
-import com.project.masterspringboot2026.entity.User;
+import com.project.masterspringboot2026.model.User;
 import com.project.masterspringboot2026.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

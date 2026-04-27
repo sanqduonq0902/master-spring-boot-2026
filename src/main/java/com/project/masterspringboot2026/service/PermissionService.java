@@ -2,7 +2,7 @@ package com.project.masterspringboot2026.service;
 
 import com.project.masterspringboot2026.dto.request.PermissionRequest;
 import com.project.masterspringboot2026.dto.response.PermissionResponse;
-import com.project.masterspringboot2026.entity.Permission;
+import com.project.masterspringboot2026.model.Permission;
 import com.project.masterspringboot2026.mapper.PermissionMapper;
 import com.project.masterspringboot2026.repository.PermissionRepository;
 import lombok.AccessLevel;

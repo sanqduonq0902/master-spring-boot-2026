@@ -1,6 +1,6 @@
 package com.project.masterspringboot2026.repository;
 
-import com.project.masterspringboot2026.entity.User;
+import com.project.masterspringboot2026.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -26,4 +26,4 @@ logging:
     console: "%clr([%d{yyyy-MM-dd HH:mm:ss}]){blue} %clr(%level) %clr(%msg){cyan}%n"
 
 jwt:
-  secret: "0b792726eaff78c40f5a5c3041f27e9b78fd32016cd904a2a495c20e0f16c0e6"
+  secret: "0zVgYBFLebqOD+OiK4r7HmMWB/Rzo1GQwan+5bQ+vcdk4RWyt8hCFUpFjjZTRtWDE0a6VDdCHHU9524CxI1/IA=="
