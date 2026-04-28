@@ -4,6 +4,7 @@ import com.nimbusds.jose.JOSEException;
 import com.project.masterspringboot2026.dto.request.AuthRequest;
 import com.project.masterspringboot2026.dto.request.IntrospectRequest;
 import com.project.masterspringboot2026.dto.request.LogoutRequest;
+import com.project.masterspringboot2026.dto.request.RefreshRequest;
 import com.project.masterspringboot2026.dto.response.APIResponse;
 import com.project.masterspringboot2026.dto.response.AuthResponse;
 import com.project.masterspringboot2026.dto.response.IntrospectResponse;
@@ -40,6 +41,14 @@ public class AuthController {
         return APIResponse.<IntrospectResponse>builder()
                 .result(result)
                 .build();
+    }
+
+    @PostMapping("/refresh")
+    APIResponse<AuthResponse> authenticated(@RequestBody RefreshRequest request) throws ParseException, JOSEException {
+        var result = authService.refreshToken(request);
+
+        return APIResponse.<AuthResponse>builder()
+                .result(result).build();
     }
 
     @PostMapping("/logout")

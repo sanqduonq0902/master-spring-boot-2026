@@ -27,3 +27,5 @@ logging:
 
 jwt:
   secret: "0zVgYBFLebqOD+OiK4r7HmMWB/Rzo1GQwan+5bQ+vcdk4RWyt8hCFUpFjjZTRtWDE0a6VDdCHHU9524CxI1/IA=="
+  valid-duration: 3600
+  refreshable-duration: 36000
